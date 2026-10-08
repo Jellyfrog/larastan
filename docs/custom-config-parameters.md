@@ -43,6 +43,9 @@ Cache files are stored in PHPStan's temp directory and invalidated when migratio
 
 Set this to `false` if you want to always re-scan migrations or if your temp directory is read-only.
 
+Independently of this setting, PHPStan's result cache is invalidated whenever the contents of a migration
+or schema dump change, so model property errors are never reused from before a schema change.
+
 ### Example
 ```neon
 parameters:

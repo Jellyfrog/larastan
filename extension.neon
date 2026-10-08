@@ -556,6 +556,11 @@ services:
             enabled: %enableMigrationCache%
 
     -
+        class: Larastan\Larastan\Properties\MigrationResultCacheMetaExtension
+        tags:
+            - phpstan.resultCacheMetaExtension
+
+    -
         class: Larastan\Larastan\Properties\ModelPropertyHelper
 
     -

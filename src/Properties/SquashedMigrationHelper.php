@@ -40,10 +40,6 @@ final class SquashedMigrationHelper
             return [];
         }
 
-        if (empty($this->schemaPaths)) {
-            $this->schemaPaths = [database_path('schema')];
-        }
-
         $filesArray = $this->getSchemaFiles();
 
         if (empty($filesArray)) {
@@ -96,6 +92,10 @@ final class SquashedMigrationHelper
     {
         /** @var SplFileInfo[] $schemaFiles */
         $schemaFiles = [];
+
+        if (empty($this->schemaPaths)) {
+            $this->schemaPaths = [database_path('schema')];
+        }
 
         foreach ($this->schemaPaths as $additionalPathGlob) {
             foreach ((glob($additionalPathGlob) ?: []) as $additionalPath) {
