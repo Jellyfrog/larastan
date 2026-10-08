@@ -15,8 +15,9 @@ use function strpbrk;
 final class DirectoryResolver
 {
     /**
-     * Expands configured paths, which may be globs, into absolute directories. A path without
-     * glob characters is kept even if it does not exist yet; callers check is_dir() before scanning.
+     * Expands configured paths, which may be globs, into absolute directories. An existing
+     * directory or a path without glob characters is kept as is, even if it does not exist yet;
+     * callers check is_dir() before scanning.
      *
      * @param string[] $paths
      *
@@ -27,8 +28,9 @@ final class DirectoryResolver
         $directories = [];
 
         foreach ($paths as $path) {
-            if (strpbrk($path, '*?[') === false) {
-                $absolutePath               = $fileHelper->absolutizePath($path);
+            $absolutePath = $fileHelper->absolutizePath($path);
+
+            if (is_dir($absolutePath) || strpbrk($path, '*?[') === false) {
                 $directories[$absolutePath] = $absolutePath;
 
                 continue;

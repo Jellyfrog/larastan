@@ -306,7 +306,8 @@ class ModelPropertyHelper
         $modelReflection = $this->reflectionProvider->getClass(Model::class);
 
         foreach ($this->migrationHelper->getMigrationDirectories() as $directory) {
-            $this->dependencyTracker->trackDirectoryDependency($modelReflection, $directory, '*.php');
+            // fnmatch() is case-sensitive; MigrationHelper scans with /\.php$/i.
+            $this->dependencyTracker->trackDirectoryDependency($modelReflection, $directory, '*.[pP][hH][pP]');
         }
 
         foreach ($this->squashedMigrationHelper->getSchemaDirectories() as $directory) {
